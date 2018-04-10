@@ -1,9 +1,9 @@
 package dao;
 
 import bean.User;
-import commom.JDBCUtil;
-import commom.Log;
-import commom.Util;
+import common.JDBCUtil;
+import common.Log;
+import common.Util;
 
 import java.sql.*;
 

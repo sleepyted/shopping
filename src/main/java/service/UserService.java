@@ -1,7 +1,7 @@
 package service;
 
 import bean.User;
-import commom.Util;
+import common.Util;
 import dao.PubDefine;
 import dao.UserDao;
 

@@ -3,7 +3,7 @@ package servlet;
 import bean.Result;
 import bean.User;
 import com.google.gson.Gson;
-import commom.Log;
+import common.Log;
 import dao.PubDefine;
 import service.UserService;
 

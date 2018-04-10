@@ -1,4 +1,4 @@
-package commom;
+package common;
 
 /**
  * 打印日志
