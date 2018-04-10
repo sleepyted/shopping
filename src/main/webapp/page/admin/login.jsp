@@ -40,7 +40,7 @@
 				$.ajax({
 					async: false,
 					type:"post",
-					url:"/admin?action=login",
+					url:"<%=request.getContextPath()%>/admin?action=login",
 					data:{
 						email:email.val(),
 						password: password.val()

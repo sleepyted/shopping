@@ -4,6 +4,7 @@ import bean.Result;
 import bean.User;
 import com.google.gson.Gson;
 import commom.Log;
+import dao.PubDefine;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -18,7 +19,7 @@ import java.io.IOException;
  * 用户管理
  */
 @WebServlet("/user")
-public class UserServlet extends HttpServlet {
+public class UserServlet extends HttpServlet implements PubDefine{
 	private final String TAG = "UserServlet";
 	UserService userService = new UserService();
 
@@ -75,10 +76,13 @@ public class UserServlet extends HttpServlet {
 				Log.i(TAG, user.toString());
 
 				try{
-					if(userService.userRegister(user) != -1){
+					int rtn = userService.userRegister(user);
+					if(rtn != STATUS_ERROR){
 						resp.getWriter().write(gson.toJson(new Result(1,"注册成功，将跳转到登录页面")));
-					}else {
+					}else if(rtn == STATUS_ALLREADY_FOUND){
 						resp.getWriter().write(gson.toJson(new Result(0,"注册失败，邮箱已被占用")));
+					}else {
+						resp.getWriter().write(gson.toJson(new Result(0,"注册失败，系统错误")));
 					}
 				}catch (Exception e){
 					Log.i(TAG, e.toString());

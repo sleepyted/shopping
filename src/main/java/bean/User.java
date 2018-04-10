@@ -94,6 +94,10 @@ public class User {
 		return createDate;
 	}
 
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
+	}
+
 	public String getUserType() {
 		return userType;
 	}

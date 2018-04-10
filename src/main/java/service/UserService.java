@@ -2,6 +2,7 @@ package service;
 
 import bean.User;
 import commom.Util;
+import dao.PubDefine;
 import dao.UserDao;
 
 import java.io.UnsupportedEncodingException;
@@ -9,12 +10,12 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  */
-public class UserService {
+public class UserService implements PubDefine{
 	UserDao userDao = new UserDao();
 	public int userRegister(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		user.setUserType("0");
 		if(userDao.getUserByEmail(user.getEmail())){
-			return -1;
+			return STATUS_ALLREADY_FOUND;
 		}
 		user.setPassword(Util.EncoderByMd5(user.getPassword()));
 		return userDao.insert(user);

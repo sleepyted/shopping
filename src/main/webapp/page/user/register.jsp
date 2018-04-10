@@ -66,7 +66,7 @@
 
 					$.ajax({
 						async: false,
-						url: "/user?action=register",
+						url: "<%=request.getContextPath()%>/user?action=register",
 						type: 'post',
 						data: {
 							userInfo: JSON.stringify(userInfo)
@@ -78,8 +78,9 @@
 							if (result.status == 1) {
 								alert(result.msg);
 								window.location.href = "<%=request.getContextPath()%>/user?page=login"
+							}else {
+								alert(result.msg);
 							}
-							alert(result.msg);
 						},
 						error: function () {
 						}

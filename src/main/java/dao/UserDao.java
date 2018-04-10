@@ -10,16 +10,13 @@ import java.sql.*;
 /**
  * 数据访问--用户（User）
  */
-public class UserDao {
+public class UserDao extends BaseDao implements PubDefine {
 	private static final String TAG = "UserDao";
-	private Connection conn = null;
-	private PreparedStatement ps = null;
-	private ResultSet rs = null;
 
 	public int insert(User user) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "INSERT INTO dtest.user" +
+			String sql = "INSERT INTO shopping.user" +
 					" (username, email, tel, password, gender, user_type)" +
 					" VALUES" +
 					" (?,?,?,?,?,?)";
@@ -37,19 +34,19 @@ public class UserDao {
 				int id = rs.getInt(1);
 				return id;
 			}
+			return STATUS_ERROR;
 		} catch (Exception e) {
 			Log.i(TAG, e.toString());
-			return -1;
+			return STATUS_ERROR;
 		} finally {
 			JDBCUtil.closeResource(rs, ps);
 		}
-		return  -1;
 	}
 
 	public User getUserByEmailPassword(String email, String password) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM dtest.user" +
+			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM shopping.user" +
 					" WHERE " +
 					" email = ? and password = ?";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -70,7 +67,7 @@ public class UserDao {
 	public User getUserById(int id) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM dtest.user" +
+			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM shopping.user" +
 					" WHERE " +
 					" id = ?";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -103,7 +100,7 @@ public class UserDao {
 	public Boolean getUserByEmail(String email) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM dtest.user" +
+			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM shopping.user" +
 					" WHERE " +
 					" email = ?";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
