@@ -10,6 +10,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import java.io.FileInputStream;
+import javax.servlet.ServletOutputStream;
+
 import bean.Attachment;
 import bean.Result;
 import com.google.gson.Gson;
@@ -19,19 +22,19 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-public class FileUploadUtil implements PubDefine{
+public class FileUtil implements PubDefine{
 	private static final long serialVersionUID = 1L;
-	private static final String TAG = "FileUploadUtil";
+	private static final String TAG = "FileUtil";
 
 	// 上传文件存储目录
-	private static final String UPLOAD_DIRECTORY = "upload";
+	private static final String UPLOAD_DIRECTORY = "/upload";
 
 	// 上传配置
 	private static final int MEMORY_THRESHOLD = 1024 * 1024 * 3;  // 3MB
 	private static final int MAX_FILE_SIZE = 1024 * 1024 * 40; // 40MB
 	private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 50; // 50MB
 
-	public FileUploadUtil() {
+	public FileUtil() {
 		super();
 	}
 
@@ -71,7 +74,7 @@ public class FileUploadUtil implements PubDefine{
 //		String uploadPath = request.getContextPath() + File.separator + UPLOAD_DIRECTORY;
 
 		//获取项目发布路径  下的upload文件夹
-		String	uploadPath = request.getSession().getServletContext().getRealPath("/upload");
+		String	uploadPath = request.getSession().getServletContext().getRealPath(UPLOAD_DIRECTORY);
 //		uploadPath = "D://666//shopping//fileTmp";
 
 		// 如果目录不存在则创建
@@ -140,4 +143,42 @@ public class FileUploadUtil implements PubDefine{
 		}
 		//request.getRequestDispatcher("/message.jsp").forward(request, response);
 	}
+
+
+	/**
+	 * 在servlet中调用该方法, jsp页面中img标签的src指向该servlet, 则会显示图片
+	 *
+	 * @param response
+	 * @param isResponseClose
+	 */
+	public static void showImage(HttpServletRequest request, HttpServletResponse response,boolean isResponseClose) {
+		try {
+			int imageId = Integer.valueOf(request.getParameter("imgId"));
+			AttachmentDao dao = new AttachmentDao();
+			Attachment attachment = dao.getAttachmentById(imageId);
+			if(null != attachment) {
+				String path = request.getSession().getServletContext().getRealPath(UPLOAD_DIRECTORY);
+				ServletOutputStream outStream = response.getOutputStream();// 得到向客户端输出二进制数据的对象
+				FileInputStream fis = new FileInputStream(path + File.separator +attachment.getLocalName()); // 以byte流的方式打开文件
+				// 读数据
+				byte data[] = new byte[1000];
+				while (fis.read(data) > 0) {
+					outStream.write(data);
+				}
+				fis.close();
+				response.setContentType("image/*"); // 设置返回的文件类型
+				outStream.write(data); // 输出数据
+				if (isResponseClose) {
+					outStream.close();
+				}
+			}else {
+				//TODO send a default file
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+
 }

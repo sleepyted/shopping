@@ -1,6 +1,6 @@
 package servlet;
 
-import common.FileUploadUtil;
+import common.FileUtil;
 import common.Log;
 
 import javax.servlet.ServletException;
@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  */
 @WebServlet("/file")
-public class FileServlet extends HttpServlet{
+public class FileUploadServlet extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -24,7 +24,7 @@ public class FileServlet extends HttpServlet{
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		resp.setCharacterEncoding("UTF-8");
 		resp.setContentType("text/html;charset=UTF-8");
-		FileUploadUtil uploadUtil = new FileUploadUtil();
+		FileUtil uploadUtil = new FileUtil();
 		try {
 			uploadUtil.doRecive(req, resp);
 		}catch (Exception e){
