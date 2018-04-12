@@ -48,4 +48,15 @@ public class Good {
     public void setPrice(Double price) {
         this.price = price;
     }
+
+    @Override
+    public String toString() {
+        return "Good{" +
+                "id=" + id +
+                ", picId=" + picId +
+                ", name='" + name + '\'' +
+                ", discription='" + discription + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
