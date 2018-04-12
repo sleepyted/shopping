@@ -11,9 +11,6 @@
 <script type="text/javascript">
 	function ajaxFileUpload()
 	{
-
-
-
 		$.ajaxFileUpload
 		(
 				{
