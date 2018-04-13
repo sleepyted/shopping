@@ -19,14 +19,15 @@ public class GoodDao extends BaseDao implements PubDefine {
 		try{
 			conn = JDBCUtil.getConnection();
 			String sql = "INSERT INTO shopping.good" +
-					" (name, picId, discription, price)" +
+					" (name, picId, discription, price, count)" +
 					" VALUES" +
-					" (?,?,?,?)";
+					" (?,?,?,?,?)";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, good.getName());
 			ps.setInt(2, good.getPicId());
 			ps.setString(3, good.getDiscription());
 			ps.setDouble(4, good.getPrice());
+			ps.setInt(5, good.getCount());
 
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
@@ -46,7 +47,7 @@ public class GoodDao extends BaseDao implements PubDefine {
 	public Good findById(int id){
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,picId,name,discription, price FROM shopping.good" +
+			String sql = "SELECT id,picId,name,discription, price,count FROM shopping.good" +
 					" WHERE " +
 					" id = ?";
 			ps = conn.prepareStatement(sql);
@@ -59,6 +60,7 @@ public class GoodDao extends BaseDao implements PubDefine {
 				good.setName(rs.getString("name"));
 				good.setDiscription(rs.getString("discription"));
 				good.setPrice(rs.getDouble("price"));
+				good.setCount(rs.getInt("count"));
 				return good;
 			}
 			return null;
@@ -73,7 +75,7 @@ public class GoodDao extends BaseDao implements PubDefine {
 	public List<Good> findAllGood(){
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,picId,name,discription, price FROM shopping.good";
+			String sql = "SELECT id,picId,name,discription, price, count FROM shopping.good";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			List goodList = new ArrayList<>();
@@ -84,6 +86,7 @@ public class GoodDao extends BaseDao implements PubDefine {
 				good.setName(rs.getString("name"));
 				good.setDiscription(rs.getString("discription"));
 				good.setPrice(rs.getDouble("price"));
+				good.setCount(rs.getInt("count"));
 				goodList.add(good);
 			}
 			return goodList;

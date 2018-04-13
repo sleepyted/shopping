@@ -15,6 +15,10 @@
         <label for="price">价格</label>
         <input type="number" step="0.01" class="form-control" id="price" name="price" placeholder="price">
     </div>
+    <div class="form-group">
+        <label for="count">库存</label>
+        <input type="number" class="form-control" id="count" name="count" placeholder="price">
+    </div>
 
     <a href="#" id="openBtn" class="btn btn-default" data-toggle="modal" data-target="#iconModel">上传商品图片</a>
     <%--<button id="uploadBtn"class="btn btn-default">上传商品图片</button>--%>

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  */
@@ -70,11 +71,13 @@ public class GoodServlet extends HttpServlet {
 			String name = req.getParameter("name");
 			String discription = req.getParameter("discription");
 			Double price = Double.valueOf(req.getParameter("price"));
+			int count = Integer.valueOf(req.getParameter("count"));
 
 			Good good = new Good();
 			good.setName(name);
 			good.setDiscription(discription);
 			good.setPrice(price);
+			good.setCount(count);
 			if (!picId.equals("")) {
 				good.setPicId(Integer.valueOf(picId));
 			} else {

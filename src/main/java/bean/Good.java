@@ -8,6 +8,7 @@ public class Good {
     private String name;
     private String discription;
     private Double price;
+    private int count;
 
     public int getId() {
         return id;
@@ -49,6 +50,14 @@ public class Good {
         this.price = price;
     }
 
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
+
     @Override
     public String toString() {
         return "Good{" +
@@ -57,6 +66,7 @@ public class Good {
                 ", name='" + name + '\'' +
                 ", discription='" + discription + '\'' +
                 ", price=" + price +
+                ", count=" + count +
                 '}';
     }
 }
