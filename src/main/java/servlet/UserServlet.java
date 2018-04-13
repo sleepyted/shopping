@@ -4,6 +4,7 @@ import bean.Result;
 import bean.User;
 import com.google.gson.Gson;
 import common.Log;
+import common.Util;
 import dao.PubDefine;
 import service.UserService;
 
@@ -61,12 +62,10 @@ public class UserServlet extends HttpServlet implements PubDefine{
 					HttpSession session = req.getSession();
 					session.setAttribute("user", user);
 					Result result = new Result(1, "/home");
-					Gson gson = new Gson();
-					resp.getWriter().write(gson.toJson(result));
+					Util.writeJson(resp, result);
 				}else {
 					Result result = new Result(0, "登录失败，请检查邮箱和密码");
-					Gson gson = new Gson();
-					resp.getWriter().write(gson.toJson(result));
+					Util.writeJson(resp,result);
 				}
 				break;
 			case "register":
@@ -78,15 +77,15 @@ public class UserServlet extends HttpServlet implements PubDefine{
 				try{
 					int rtn = userService.userRegister(user);
 					if(rtn != STATUS_ERROR){
-						resp.getWriter().write(gson.toJson(new Result(1,"注册成功，将跳转到登录页面")));
+						Util.writeJson(resp,new Result(1,"注册成功，将跳转到登录页面"));
 					}else if(rtn == STATUS_ALLREADY_FOUND){
-						resp.getWriter().write(gson.toJson(new Result(0,"注册失败，邮箱已被占用")));
+						Util.writeJson(resp, new Result(0,"注册失败，邮箱已被占用"));
 					}else {
-						resp.getWriter().write(gson.toJson(new Result(0,"注册失败，系统错误")));
+						Util.writeJson(resp, new Result(0,"注册失败，系统错误"));
 					}
 				}catch (Exception e){
 					Log.i(TAG, e.toString());
-					resp.getWriter().write(gson.toJson(new Result(0,"注册失败，请重试")));
+					Util.writeJson(resp, new Result(0,"注册失败，请重试"));
 				}
 		}
 	}

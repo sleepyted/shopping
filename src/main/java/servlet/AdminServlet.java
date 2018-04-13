@@ -3,6 +3,7 @@ package servlet;
 import bean.Result;
 import bean.User;
 import com.google.gson.Gson;
+import common.Util;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -56,12 +57,10 @@ public class AdminServlet extends HttpServlet{
 					HttpSession session = req.getSession();
 					session.setAttribute("admin", admin);
 					Result result = new Result(1, "/admin?page=dashboard");
-					Gson gson = new Gson();
-					resp.getWriter().write(gson.toJson(result));
+					Util.writeJson(resp, result);
 				} else {
 					Result result = new Result(0, "登录失败，请检查用户名和密码");
-					Gson gson = new Gson();
-					resp.getWriter().write(gson.toJson(result));
+					Util.writeJson(resp, result);
 				}
 				break;
 		}

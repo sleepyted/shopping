@@ -1,10 +1,14 @@
 package bean;
 
+import java.util.List;
+
 /**
  */
-public class Result {
+public class Result<T> {
 	private int status;
 	private String msg;
+	private List<T> list;
+	private Class<T> bean;
 
 	public Result() {
 	}
@@ -30,5 +34,19 @@ public class Result {
 		this.msg = msg;
 	}
 
+	public List<T> getList() {
+		return list;
+	}
 
+	public void setList(List<T> list) {
+		this.list = list;
+	}
+
+	public Class<T> getBean() {
+		return bean;
+	}
+
+	public void setBean(Class<T> bean) {
+		this.bean = bean;
+	}
 }

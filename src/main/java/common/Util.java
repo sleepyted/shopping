@@ -1,10 +1,15 @@
 package common;
 
+import bean.Result;
+import com.google.gson.Gson;
 import sun.misc.BASE64Encoder;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 import java.util.UUID;
 
 /**
@@ -12,6 +17,8 @@ import java.util.UUID;
  */
 public class Util {
 
+	private static Gson gson = new Gson();
+	private static final String TAG = "Util";
 	/**
 	 * 使用MD5加密字符串
 	 *
@@ -50,4 +57,13 @@ public class Util {
 		}
 		return "";
 	}
+
+	public static void writeJson(HttpServletResponse resp,Result result){
+		try {
+			resp.getWriter().write(gson.toJson(result));
+		}catch (IOException e){
+			Log.i(TAG, e.toString());
+		}
+	}
+
 }
