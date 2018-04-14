@@ -22,7 +22,8 @@ CREATE TABLE good(
   picId VARCHAR(2048) NOT NULL,
   name VARCHAR(128) NOT NULL ,
   discription VARCHAR(4396) NOT NULL ,
-  price DOUBLE NOT NULL
+  price DOUBLE NOT NULL,
+  count int(11) not NULL
 
 );
 
@@ -32,7 +33,9 @@ CREATE TABLE orders (
   userId INT(8) NOT NULL,
   goodId INT(8) NOT NULL,
   create_date TIMESTAMP NOT NULL ,
-  status CHAR(1) NOT NULL DEFAULT '0'   -- 0 下单  1 已确认  2 配送中  3 已接收
+  status CHAR(1) NOT NULL DEFAULT '0',   -- 0 下单  1 已确认  2 配送中  3 已接收
+  tel varchar(128) NOT NULL ,
+  addr VARCHAR(2048) NOT  NULL
 );
 
 DROP TABLE IF EXISTS attachment;
