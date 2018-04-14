@@ -3,20 +3,20 @@ package bean;
 /**
  */
 public class CartItem {
-	private int goodId;
+	Good good = new Good();
 	private int num;
 
-	public CartItem(int goodId, int num) {
-		this.goodId = goodId;
+	public CartItem(Good good, int num) {
+		this.good = good;
 		this.num = num;
 	}
 
-	public int getGoodId() {
-		return goodId;
+	public Good getGood() {
+		return good;
 	}
 
-	public void setGoodId(int goodId) {
-		this.goodId = goodId;
+	public void setGood(Good good) {
+		this.good = good;
 	}
 
 	public int getNum() {

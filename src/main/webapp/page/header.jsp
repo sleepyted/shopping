@@ -37,8 +37,8 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					   aria-expanded="false">我的 <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="<%=request.getContextPath()%>/puzzle?page=mark">购物车</a></li>
-						<li><a href="<%=request.getContextPath()%>/puzzle?page=mistake">订单</a></li>
+						<li><a href="<%=request.getContextPath()%>/cart?page=view">购物车</a></li>
+						<li><a href="<%=request.getContextPath()%>/order?page=view">订单</a></li>
 						<li><a href="<%=request.getContextPath()%>/user?page=account">账号</a></li>
 						<li><a href="<%=request.getContextPath()%>/user?page=exit">退出系统</a></li>
 					</ul>

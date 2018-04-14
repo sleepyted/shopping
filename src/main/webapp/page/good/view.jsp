@@ -3,24 +3,26 @@
 <jsp:include page="../header.jsp"/>
 <c:if test="${good != null}">
 	<div class="col-xs-12">
-			<div class="col col-xs-6">
-				<h3 class="display-3">${good.name}</h3>
-				<hr class="my-4">
-				<p>价格：</p>
-				<h4>￥${good.price}</h4>
-				<hr>
+		<div class="col col-xs-6">
+			<input type="hidden" id="goodId" value="${good.id}">
+			<h3 class="display-3">${good.name}</h3>
+			<hr class="my-4">
+			<p>价格：</p>
+			<h4>￥${good.price}</h4>
+			<hr>
 
-				<form class="form-inline">
-					<div class="form-group">
-						<label for="exampleInputName2">数量</label>
-						<input type="number" class="form-control" id="exampleInputName2" placeholder="剩余库存${good.count}件" >
-					</div>
-					<a class="btn btn-primary btn-md" href="#" role="button">加入购物车</a>
-				</form>
-			</div>
-			<div class="col col-xs-6" >
-				<img style="max-width: 100%;max-height: 400px;" src="<%=request.getContextPath()%>/down?imgId=${good.picId}" alt="商品图片">
-			</div>
+			<form class="form-inline">
+				<div class="form-group">
+					<label for="numIpt">数量</label>
+					<input type="number" class="form-control" id="numIpt" placeholder="剩余库存${good.count}件">
+				</div>
+				<a class="btn btn-primary btn-md" href="#" id="addCartBtn" role="button">加入购物车</a>
+			</form>
+		</div>
+		<div class="col col-xs-6">
+			<img style="max-width: 100%;max-height: 400px;" src="<%=request.getContextPath()%>/down?imgId=${good.picId}"
+			     alt="商品图片">
+		</div>
 	</div>
 	<div class="col-xs-12">
 		<hr>
@@ -32,10 +34,34 @@
 	<div class="col col-xs-6">
 		<h3 class="display-3">商品竟然消失了∑( 口 ||</h3>
 	</div>
-	</c:if>
+</c:if>
 <script>
-	$(function () {
+	var totalCount = ${good.count}
+			$(function () {
+				var goodId = $("#goodId").val()
+				var addCartBtn = $("#addCartBtn")
 
-	})
+				addCartBtn.on('click', function (e) {
+					e.preventDefault()
+					var numIpt = $("#numIpt").val() ? $("#numIpt").val() : 1
+					if (numIpt > totalCount) {
+						alert('库存不足！剩余' + totalCount + '件')
+					} else {
+						$.ajax({
+							url: '<%=request.getContextPath()%>/cart?page=add&goodId=' + goodId + '&num=' + numIpt,
+							type: 'get',
+							success: function (data) {
+								var rtn = JSON.parse(data)
+								if (rtn.status == 1) {
+									alert(rtn.msg)
+								} else {
+									alert(rtn.msg)
+								}
+							}
+						})
+					}
+				})
+
+			})
 </script>
 <jsp:include page="../footer.jsp"/>

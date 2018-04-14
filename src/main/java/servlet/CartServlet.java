@@ -4,6 +4,7 @@ import bean.CartItem;
 import bean.Result;
 import bean.User;
 import common.Util;
+import service.GoodService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,10 +24,11 @@ public class CartServlet extends HttpServlet {
 		User user = (User)req.getSession().getAttribute("user");
 		if(null != user){
 			String page = req.getParameter("page");
-			List<CartItem> cartItems = (List<CartItem>) req.getSession().getAttribute("cart");
+			List<CartItem> cartItems;
+			cartItems = (List<CartItem>) req.getSession().getAttribute("cart");
 			if(null == cartItems){
-				List<CartItem> cart = new ArrayList<>();
-				req.getSession().setAttribute("cart", cart);
+				cartItems = new ArrayList<>();
+				req.getSession().setAttribute("cart", cartItems);
 			}
 			switch (page){
 				case "view":
@@ -35,24 +37,39 @@ public class CartServlet extends HttpServlet {
 				case "add":
 					int goodId = Integer.valueOf(req.getParameter("goodId"));
 					int num = Integer.valueOf(req.getParameter("num"));
-					CartItem item = new CartItem(goodId, num);
+					Boolean flag = false;
+					for(int i = 0; i< cartItems.size(); i++) {
+						if(cartItems.get(i).getGood().getId() == goodId){
+							cartItems.get(i).setNum(cartItems.get(i).getNum()+num);
+							flag = true;
+						}
+					}
+					if(!flag){
+						GoodService service = new GoodService();
+						CartItem item = new CartItem(service.findGood(goodId), num);
+						cartItems.add(item);
+					}
 
-					cartItems.add(item);
 					Util.writeJson(resp, new Result(1,"添加成功"));
 					break;
 				case "del":
 					int goodId1 = Integer.valueOf(req.getParameter("goodId"));
-					for(CartItem c : cartItems) {
-						if(c.getGoodId() == goodId1){
-							cartItems.remove(c);
+					for(int i = 0; i< cartItems.size(); i++) {
+						if(cartItems.get(i).getGood().getId() == goodId1){
+							cartItems.remove(i);
 						}
 					}
 					Util.writeJson(resp, new Result(1,"删除成功"));
 					break;
 				case "all":
-					Result result = new Result();
-					result.setList(cartItems);
-					Util.writeJson(resp, result);
+					if(cartItems.size()>0) {
+						Result result = new Result();
+						result.setStatus(1);
+						result.setList(cartItems);
+						Util.writeJson(resp, result);
+					}else {
+						Util.writeJson(resp, new Result(0,"无商品"));
+					}
 					break;
 				case "clear":
 					cartItems.clear();
