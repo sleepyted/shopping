@@ -22,40 +22,67 @@ import java.util.Iterator;
 @WebServlet("/good")
 public class GoodServlet extends HttpServlet {
 	private static final String TAG = "GoodServlet";
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String page = req.getParameter("page");
 		if (null != page) {
 			User user = (User) req.getSession().getAttribute("admin");
-			if (null != user) {
 				switch (page) {
 					case "add":
-						req.setAttribute("title", "添加");
-						req.getRequestDispatcher("/page/admin/addgood.jsp").forward(req, resp);
+						if(user!=null && user.getUserType().equals("1")) {
+							resp.sendRedirect("admin?page=login");
+
+							req.setAttribute("title", "添加");
+							req.getRequestDispatcher("/page/admin/addgood.jsp").forward(req, resp);
+						}else {
+							resp.sendRedirect("admin?page=login");
+						}
 						break;
 					case "all":
-						GoodService service = new GoodService();
+							GoodService service = new GoodService();
 						Result result = new Result();
 						result.setStatus(1);
 						result.setList(service.findAllGood());
 						Util.writeJson(resp, result);
+
+						break;
+					case "del":
+						if(user!=null && user.getUserType().equals("1")) {
+							String goodIdDel = req.getParameter("goodId");
+							if (!goodIdDel.equals("")) {
+								GoodService goodService = new GoodService();
+								goodService.delGood(Integer.valueOf(goodIdDel));
+								Util.writeJson(resp, new Result(1, "success"));
+							} else {
+								Util.writeJson(resp, new Result(0, "fail"));
+							}
+						}
+						break;
+					case "update":
+						String goodIdUpdate = req.getParameter("goodId");
+						if (!goodIdUpdate.equals("")) {
+							GoodService service1 = new GoodService();
+							Good good = service1.findGood(Integer.valueOf(goodIdUpdate));
+							if(good!=null){
+								req.setAttribute("good", good);
+							}
+						}
+						req.getRequestDispatcher("/page/admin/updateGood.jsp").forward(req, resp);
 						break;
 					default:
 						req.setAttribute("title", "商品详情");
 						try {
 							int goodId = Integer.valueOf(page);
 							GoodService service1 = new GoodService();
-							Good good = service1.findGood(Integer.valueOf(page));
+							Good good = service1.findGood(Integer.valueOf(goodId));
 							req.setAttribute("good", good);
-						}catch (Exception e){
+						} catch (Exception e) {
 							Log.i(TAG, e.toString());
 						}
 						req.getRequestDispatcher("/page/good/view.jsp").forward(req, resp);
 						break;
 				}
-			} else {
-				resp.sendRedirect("admin?page=login");
-			}
 		}
 	}
 
@@ -87,6 +114,23 @@ public class GoodServlet extends HttpServlet {
 			GoodService goodService = new GoodService();
 			goodService.addGood(good);
 			resp.sendRedirect("good?page=add");
+		} else if (action.equals("update")) {
+			String goodIdUpdate = req.getParameter("id");
+			if (!"".equals(goodIdUpdate)) {
+				Good good = new Good();
+				good.setId(Integer.valueOf(goodIdUpdate));
+				good.setName(req.getParameter("name"));
+				good.setDiscription(req.getParameter("discription"));
+				good.setPicId(Integer.valueOf(req.getParameter("picId")));
+				good.setCount(Integer.valueOf(req.getParameter("count")));
+				good.setPrice(Double.valueOf(req.getParameter("price")));
+				GoodService service = new GoodService();
+				service.updateGood(good);
+				resp.sendRedirect("good?page=" + goodIdUpdate);
+			} else {
+
+			}
+
 		}
 	}
 }

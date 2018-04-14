@@ -8,6 +8,12 @@
 	<script src="<%= request.getContextPath() + "/static/js/jquery.js"%>"></script>
 	<script src="<%= request.getContextPath() + "/static/js/bootstrap.js"%>"></script>
 </head>
+<style>
+	.mainPic{
+		height:200px;
+		max-width: 100%;
+	}
+</style>
 <body>
 <nav class="navbar navbar-default col-xs-8 col-xs-offset-2">
 	<div class="container-fluid">

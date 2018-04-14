@@ -20,4 +20,10 @@ public class GoodService {
 	public List<Good> findAllGood(){
 		return goodDao.findAllGood();
 	}
+	public void delGood(int id){
+		goodDao.del(id);
+	}
+	public void updateGood(Good good){
+		goodDao.update(good);
+	}
 }

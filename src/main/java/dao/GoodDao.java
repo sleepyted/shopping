@@ -98,4 +98,41 @@ public class GoodDao extends BaseDao implements PubDefine {
 		}
 	}
 
+	public void del(int id){
+		try{
+			conn = JDBCUtil.getConnection();
+			String sql = "DELETE  FROM shopping.good WHERE id = ?";
+			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1, id);
+
+			ps.executeUpdate();
+			rs = ps.getGeneratedKeys();
+		} catch (Exception e) {
+			Log.i("GoodDao", e.toString());
+		} finally {
+			JDBCUtil.closeResource(rs, ps);
+		}
+	}
+
+	public void update(Good good){
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "UPDATE shopping.good SET good.name= ? , good.discription = ? , good.price = ? , good.count = ?, good.picId=? WHERE good.id = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1,good.getName());
+			ps.setString(2, good.getDiscription());
+			ps.setDouble(3, good.getPrice());
+			ps.setInt(4, good.getCount());
+			ps.setInt(5, good.getPicId());
+			ps.setInt(6, good.getId());
+
+			ps.executeUpdate();
+		} catch (Exception e) {
+			Log.i(TAG, e.toString());
+		} finally {
+			JDBCUtil.closeResource(rs, ps);
+		}
+	}
+
+
 }

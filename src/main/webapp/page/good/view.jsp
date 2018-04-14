@@ -15,11 +15,11 @@
 						<label for="exampleInputName2">数量</label>
 						<input type="number" class="form-control" id="exampleInputName2" placeholder="剩余库存${good.count}件" >
 					</div>
-					<a class="btn btn-primary btn-md" href="#" role="button">立即购买</a>
+					<a class="btn btn-primary btn-md" href="#" role="button">加入购物车</a>
 				</form>
 			</div>
 			<div class="col col-xs-6" >
-				<img style="width: 100%;" src="<%=request.getContextPath()%>/down?imgId=${good.picId}" alt="商品图片">
+				<img style="max-width: 100%;max-height: 400px;" src="<%=request.getContextPath()%>/down?imgId=${good.picId}" alt="商品图片">
 			</div>
 	</div>
 	<div class="col-xs-12">
@@ -35,6 +35,7 @@
 	</c:if>
 <script>
 	$(function () {
+
 	})
 </script>
 <jsp:include page="../footer.jsp"/>
