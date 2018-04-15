@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  */
-public class GoodDao extends BaseDao implements PubDefine {
+public class GoodDao extends BaseDao  {
 
 	private static final String TAG = "GoodDao";
 

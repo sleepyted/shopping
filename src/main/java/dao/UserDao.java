@@ -1,5 +1,6 @@
 package dao;
 
+import bean.Good;
 import bean.User;
 import common.JDBCUtil;
 import common.Log;
@@ -10,7 +11,7 @@ import java.sql.*;
 /**
  * 数据访问--用户（User）
  */
-public class UserDao extends BaseDao implements PubDefine {
+public class UserDao extends BaseDao {
 	private static final String TAG = "UserDao";
 
 	public int insert(User user) {
@@ -84,6 +85,22 @@ public class UserDao extends BaseDao implements PubDefine {
 		}
 	}
 
+	public void update(User user) {
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "UPDATE shopping.user SET username=?, tel=? WHERE id = ?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, user.getUsername());
+			ps.setString(2, user.getEmail());
+			ps.setInt(3, user.getId());
+			ps.executeUpdate();
+		} catch (Exception e) {
+			Log.i(TAG, e.toString());
+		} finally {
+			JDBCUtil.closeResource(rs, ps);
+		}
+	}
+
 	private User resolveResultSet(ResultSet rs, User user) throws SQLException {
 		if (rs.next()) {
 			user.setId(rs.getInt("id"));
@@ -92,7 +109,7 @@ public class UserDao extends BaseDao implements PubDefine {
 			user.setGender(rs.getString("gender"));
 			user.setTel(rs.getString("tel"));
 			user.setUserType(rs.getString("user_type"));
-			user.setDelFlag( rs.getString("del_flag"));
+			user.setDelFlag(rs.getString("del_flag"));
 		}
 		return user;
 	}

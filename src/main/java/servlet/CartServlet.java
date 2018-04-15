@@ -1,6 +1,7 @@
 package servlet;
 
 import bean.CartItem;
+import bean.Order;
 import bean.Result;
 import bean.User;
 import common.Util;
@@ -74,6 +75,9 @@ public class CartServlet extends HttpServlet {
 				case "clear":
 					cartItems.clear();
 					Util.writeJson(resp, new Result(1,"购物车已清空"));
+					break;
+				case "buy":
+					req.getRequestDispatcher("/page/good/buy.jsp").forward(req, resp);
 					break;
 			}
 		}else {

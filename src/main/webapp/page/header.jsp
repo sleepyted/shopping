@@ -26,7 +26,13 @@
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</button>
+			<c:if test="${admin ==null}">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/home">购物网</a>
+			</c:if>
+			<c:if test="${admin !=null}">
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/admin?page=dashboard">dashboard</a>
+			</c:if>
+
 		</div>
 		<c:if test="${user!=null}">
 		<!-- Collect the nav links, forms, and other content for toggling -->

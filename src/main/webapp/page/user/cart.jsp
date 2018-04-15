@@ -15,7 +15,7 @@
 	<legend>
 		总价：￥<span id="totalPrice"></span>
 	</legend>
-	<a href="#" id="buyBtn" class="btn btn-info ">结算</a>
+	<a href="<%=request.getContextPath()%>/cart?page=buy" id="buyBtn" class="btn btn-info ">结算</a>
 	<a href="#" id="clearBtn" class="btn btn-default ">清空购物车</a>
 
 <script>

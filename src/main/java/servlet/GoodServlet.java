@@ -31,8 +31,6 @@ public class GoodServlet extends HttpServlet {
 				switch (page) {
 					case "add":
 						if(user!=null && user.getUserType().equals("1")) {
-							resp.sendRedirect("admin?page=login");
-
 							req.setAttribute("title", "添加");
 							req.getRequestDispatcher("/page/admin/addgood.jsp").forward(req, resp);
 						}else {
@@ -58,6 +56,9 @@ public class GoodServlet extends HttpServlet {
 								Util.writeJson(resp, new Result(0, "fail"));
 							}
 						}
+						break;
+					case "buy":
+						//遍历购物车 跳转订单页
 						break;
 					case "update":
 						String goodIdUpdate = req.getParameter("goodId");

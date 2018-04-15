@@ -10,9 +10,18 @@ public class Order {
 	private int goodId;
 	private int num;
 	private Timestamp createDate;
+	private String name;
 	private String status;
 	private String tel;
 	private String addr;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public int getId() {
 		return id;

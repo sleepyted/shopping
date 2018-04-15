@@ -8,7 +8,7 @@ import java.sql.Statement;
 
 /**
  */
-public class AttachmentDao extends BaseDao implements PubDefine{
+public class AttachmentDao extends BaseDao {
     private static String TAG = "AttachmentDao";
 
     public int insert(Attachment attachment){

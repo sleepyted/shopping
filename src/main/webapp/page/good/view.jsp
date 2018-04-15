@@ -26,7 +26,7 @@
 	</div>
 	<div class="col-xs-12">
 		<hr>
-		<p class="lead">${good.discription}.</p>
+		<div class="col-xs-12"style="word-break:break-all;"><p>${good.discription}</p></div>
 
 	</div>
 </c:if>
