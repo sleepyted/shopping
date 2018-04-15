@@ -56,7 +56,7 @@ public class OrderDao extends BaseDao{
 				order.setStatus(rs.getString("status"));
 				order.setTel(rs.getString("tel"));
 				order.setAddr(rs.getString("addr"));
-				order.setCreateDate(rs.getTimestamp("creat_date"));
+				order.setCreateDate(rs.getTimestamp("create_date"));
 				order.setNum(rs.getInt("num"));
 				order.setName(rs.getString("name"));
 				return order;
@@ -73,7 +73,7 @@ public class OrderDao extends BaseDao{
 	public List<Order> findAll(){
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,userId,goodId,status,tel,addr,create_date,name FROM shopping.orders";
+			String sql = "SELECT id,userId,goodId,status,tel,addr,create_date,name,num FROM shopping.orders ORDER BY create_date DESC ";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			List orderList = new ArrayList<>();
@@ -85,7 +85,8 @@ public class OrderDao extends BaseDao{
 				order.setStatus(rs.getString("status"));
 				order.setTel(rs.getString("tel"));
 				order.setAddr(rs.getString("addr"));
-				order.setCreateDate(rs.getTimestamp("creat_date"));
+				order.setNum(rs.getInt("num"));
+				order.setCreateDate(rs.getTimestamp("create_date"));
 				order.setName(rs.getString("name"));
 				orderList.add(order);
 			}
@@ -101,7 +102,7 @@ public class OrderDao extends BaseDao{
 	public List<Order> findAllByUserId(int id){
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,userId,goodId,status,tel,addr,create_date,name FROM shopping.orders WHERE userId = ?";
+			String sql = "SELECT id,userId,goodId,status,tel,addr,create_date,name,num FROM shopping.orders WHERE userId = ? ORDER BY create_date DESC ";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
@@ -114,7 +115,8 @@ public class OrderDao extends BaseDao{
 				order.setStatus(rs.getString("status"));
 				order.setTel(rs.getString("tel"));
 				order.setAddr(rs.getString("addr"));
-				order.setCreateDate(rs.getTimestamp("creat_date"));
+				order.setNum(rs.getInt("num"));
+				order.setCreateDate(rs.getTimestamp("create_date"));
 				order.setName(rs.getString("name"));
 				orderList.add(order);
 			}

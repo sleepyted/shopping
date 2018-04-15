@@ -1,11 +1,13 @@
 package servlet;
 
+import bean.Comment;
 import bean.Good;
 import bean.Result;
 import bean.User;
 import com.google.gson.Gson;
 import common.Log;
 import common.Util;
+import dao.CommentDao;
 import service.GoodService;
 
 import javax.servlet.ServletException;
@@ -16,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  */
@@ -77,7 +80,11 @@ public class GoodServlet extends HttpServlet {
 							int goodId = Integer.valueOf(page);
 							GoodService service1 = new GoodService();
 							Good good = service1.findGood(Integer.valueOf(goodId));
+
+							List<Comment> comments = new ArrayList<>();
+							comments = new CommentDao().findByGoodId(good.getId());
 							req.setAttribute("good", good);
+							req.setAttribute("comments", comments);
 						} catch (Exception e) {
 							Log.i(TAG, e.toString());
 						}

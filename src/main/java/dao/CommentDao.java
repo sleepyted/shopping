@@ -6,6 +6,8 @@ import common.Log;
 import sun.plugin.com.event.COMEventHandler;
 
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  */
@@ -40,24 +42,25 @@ public class CommentDao extends BaseDao {
 		}
 	}
 
-	public Comment findByGoodId(int id){
+	public List<Comment> findByGoodId(int id){
 		try {
 			conn = JDBCUtil.getConnection();
 			String sql = "SELECT id,goodId,userId,content,username,create_date FROM shopping.comments WHERE goodId = ?";
 			ps = conn.prepareStatement(sql);
 			ps.setInt(1, id);
 			rs = ps.executeQuery();
-			Comment comment = new Comment();
-			if (rs.next()) {
+			List<Comment> comments = new ArrayList<>();
+			while (rs.next()) {
+				Comment comment = new Comment();
 				comment.setId(rs.getInt("id"));
 				comment.setUserId(rs.getInt("userId"));
 				comment.setGoodId(rs.getInt("goodId"));
 				comment.setContent(rs.getString("content"));
 				comment.setUsername(rs.getString("username"));
 				comment.setCreateDate(rs.getTimestamp("create_date"));
-				return comment;
+				comments.add(comment);
 			}
-			return null;
+			return comments;
 		} catch (Exception e) {
 			Log.i(TAG, e.toString());
 			return null;

@@ -26,7 +26,28 @@
 	</div>
 	<div class="col-xs-12">
 		<hr>
-		<div class="col-xs-12"style="word-break:break-all;"><p>${good.discription}</p></div>
+
+
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#good_discription" data-toggle="tab" aria-expanded="true">商品描述</a></li>
+			<li class=""><a href="#good_comment" data-toggle="tab" aria-expanded="false">评价</a></li>
+		</ul>
+
+		<div id="myTabContent" class="tab-content">
+			<div class="tab-pane fade active in" id="good_discription">
+				<div class="col-xs-12" style="word-break:break-all;"><p>${good.discription}</p></div>
+			</div>
+			<div class="tab-pane fade" id="good_comment">
+				<c:forEach items="${comments}" var="comment">
+					<br>
+					<p>用户：${comment.username}</p>
+					<p>评价：${comment.content}</p>
+					<p>时间：${comment.createDate}</p>
+					<hr>
+				</c:forEach>
+			</div>
+		</div>
+
 
 	</div>
 </c:if>

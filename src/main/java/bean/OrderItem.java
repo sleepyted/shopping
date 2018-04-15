@@ -7,6 +7,12 @@ public class OrderItem {
 	private User user;
 	private Good good;
 
+	public OrderItem(Order order, User user, Good good) {
+		this.order = order;
+		this.user = user;
+		this.good = good;
+	}
+
 	public Order getOrder() {
 		return order;
 	}

@@ -19,7 +19,7 @@
 		<p>女</p>
 	</c:if>
 	<p class="lead">
-		<a class="btn btn-primary btn-md" href="#" role="button">修改</a>
+		<a class="btn btn-primary btn-md" href="<%=request.getContextPath()%>/user?page=update" role="button">修改</a>
 	</p>
 </div>
 

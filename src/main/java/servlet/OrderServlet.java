@@ -1,8 +1,6 @@
 package servlet;
 
-import bean.CartItem;
-import bean.Order;
-import bean.User;
+import bean.*;
 import service.OrderService;
 
 import javax.servlet.ServletException;
@@ -21,14 +19,29 @@ public class OrderServlet extends HttpServlet{
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String page = req.getParameter("page");
+		OrderService service = new OrderService();
 
 		switch (page){
 			case "user":
 				User user = (User) req.getSession().getAttribute("user");
-				OrderService service = new OrderService();
 				List<Order> orders = service.finalUserOrders(user.getId());
-				req.setAttribute("orders", orders);
+				List<OrderItem> orderItems = service.getOrderItem(orders);
+				req.setAttribute("orders", orderItems);
 				req.getRequestDispatcher("/page/user/orders.jsp").forward(req, resp);
+				break;
+			case "confirm":
+				String orderId = req.getParameter("orderId");
+				Order order = new OrderService().findById(Integer.valueOf(orderId));
+				service.updateOrderStatus(OrderService.STATUS_FINISH, Integer.valueOf(orderId));
+				resp.sendRedirect("order?page=comment&goodId="+ order.getGoodId());
+				break;
+			case "comment":
+				int goodId = Integer.valueOf(req.getParameter("goodId"));
+				Comment comment = new Comment();
+
+				comment.setGoodId(goodId);
+				req.setAttribute("comment", comment);
+				req.getRequestDispatcher("/page/good/comment.jsp").forward(req, resp);
 				break;
 		}
 	}
