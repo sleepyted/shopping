@@ -42,6 +42,9 @@ public class UserServlet extends HttpServlet implements PubDefine{
 				req.getSession().removeAttribute("admin");
 				resp.sendRedirect("home");
 				break;
+			case "update":
+				req.getRequestDispatcher("/page/user/updateAccount.jsp").forward(req, resp);
+				break;
 			default:
 				Log.i(TAG, "No page match -- " + page);
 		}
@@ -87,6 +90,16 @@ public class UserServlet extends HttpServlet implements PubDefine{
 					Log.i(TAG, e.toString());
 					Util.writeJson(resp, new Result(0,"注册失败，请重试"));
 				}
+				break;
+			case "update":
+				String username = req.getParameter("username");
+				String tel = req.getParameter("tel");
+				User currUser = (User) req.getSession().getAttribute("user");
+				currUser.setUsername(username);
+				currUser.setTel(tel);
+				userService.updateUser(user);
+				resp.sendRedirect("user?page=account");
+				break;
 		}
 	}
 

@@ -7,6 +7,7 @@ import dao.UserDao;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
 
 /**
  */
@@ -33,5 +34,17 @@ public class UserService implements PubDefine{
 			return null;
 		}
 		return user;
+	}
+
+	public void updateUser(User user) {
+		userDao.update(user);
+	}
+
+	public List<User> findAllUser() {
+		return userDao.getAll();
+	}
+
+	public void delUser(int id) {
+		userDao.delUser(id);
 	}
 }

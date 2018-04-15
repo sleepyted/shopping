@@ -7,6 +7,8 @@ import common.Log;
 import common.Util;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 数据访问--用户（User）
@@ -134,6 +136,47 @@ public class UserDao extends BaseDao {
 			JDBCUtil.closeResource(rs, ps);
 		}
 		return false;
+	}
+
+	public List<User> getAll() {
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM shopping.user" ;
+			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			rs = ps.executeQuery();
+			List<User> users = new ArrayList<>();
+			while (rs.next()) {
+				User user = new User();
+				user.setId(rs.getInt("id"));
+				user.setUsername(rs.getString("username"));
+				user.setEmail(rs.getString("email"));
+				user.setGender(rs.getString("gender"));
+				user.setTel(rs.getString("tel"));
+				user.setUserType(rs.getString("user_type"));
+				user.setDelFlag(rs.getString("del_flag"));
+				users.add(user);
+			}
+			return users;
+		} catch (Exception e) {
+			Log.i(TAG, e.toString());
+			return null;
+		} finally {
+			JDBCUtil.closeResource(rs, ps);
+		}
+	}
+
+	public void delUser(int id) {
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "DELETE from shopping.user WHERE user.id = ?" ;
+			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+			ps.setInt(1,id);
+			ps.executeUpdate();
+		} catch (Exception e) {
+			Log.i(TAG, e.toString());
+		} finally {
+			JDBCUtil.closeResource(rs, ps);
+		}
 	}
 
 }

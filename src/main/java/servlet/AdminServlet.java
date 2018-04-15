@@ -1,9 +1,12 @@
 package servlet;
 
+import bean.Order;
+import bean.OrderItem;
 import bean.Result;
 import bean.User;
 import com.google.gson.Gson;
 import common.Util;
+import service.OrderService;
 import service.UserService;
 
 import javax.servlet.ServletException;
@@ -13,6 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
+import java.util.List;
 
 /**
  */
@@ -36,6 +40,47 @@ public class AdminServlet extends HttpServlet{
 			case "exit":
 				req.getSession().removeAttribute("admin");
 				resp.sendRedirect("home");
+				break;
+			case "allUser":
+				User admin = (User) req.getSession().getAttribute("admin");
+				if (null != admin) {
+					UserService service = new UserService();
+					List<User> userList = service.findAllUser();
+					Result result = new Result();
+					result.setList(userList);
+					Util.writeJson(resp, result);
+				}
+				break;
+			case "allOrder":
+				User admin1 = (User) req.getSession().getAttribute("admin");
+				if (null != admin1) {
+					OrderService service = new OrderService();
+					List<Order> orders = service.findAll();
+					List<OrderItem> items = service.getOrderItem(orders);
+					Result result = new Result();
+					result.setList(items);
+					Util.writeJson(resp, result);
+				}
+				break;
+			case "delUser":
+				User admin2 = (User) req.getSession().getAttribute("admin");
+				if (null != admin2) {
+					int userId = Integer.valueOf(req.getParameter("userId"));
+					UserService userService1 = new UserService();
+					userService1.delUser(userId);
+					Util.writeJson(resp, new Result(1,"success"));
+				}
+				break;
+			case "changeOrderStatus":
+				User admin3 = (User) req.getSession().getAttribute("admin");
+				if (null != admin3) {
+					String status = req.getParameter("status");
+					String orderId = req.getParameter("orderId");
+					OrderService service = new OrderService();
+					service.updateOrderStatus(status,Integer.valueOf(orderId));
+
+					Util.writeJson(resp, new Result(1, "success"));
+				}
 				break;
 			default:
 		}

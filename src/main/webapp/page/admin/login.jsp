@@ -5,11 +5,11 @@
 <form>
 	<div class="form-group">
 		<label for="Email">邮箱</label>
-		<input type="email" class="form-control" id="Email" name="email" placeholder="Email">
+		<input type="email" class="form-control" id="Email" name="email" value="${user.username}" placeholder="Email">
 	</div>
 	<div class="form-group">
 		<label for="Password">密码</label>
-		<input type="password" class="form-control" id="Password" name="password" placeholder="Password">
+		<input type="password" class="form-control" id="Password" name="password" value="${user.tel}" placeholder="Password">
 	</div>
 	<%--<div class="checkbox">--%>
 	<%--<label>--%>
