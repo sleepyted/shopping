@@ -3,13 +3,12 @@
 <jsp:include page="../header.jsp"/>
 
 <div class="container col-xs-12">
-	<div class="btn-group btn-group-justified" style="margin-top: -5%">
-		<a href="#" id="goodBtn" class="btn btn-default active">商品</a>
-		<a href="#" id="userBtn" class="btn btn-default">用户</a>
-		<a href="#" id="orderBtn" class="btn btn-default">订单</a>
+	<div class="col col-xs-4" >
+		<a href="#" id="goodBtn" class="btn  btn-block btn-default active">商品</a>
+		<a href="#" id="userBtn" class="btn  btn-block btn-default">用户</a>
+		<a href="#" id="orderBtn" class="btn btn-block  btn-default">订单</a>
 	</div>
-	<hr>
-	<div id="dataContainer">
+	<div id="dataContainer" class="cpl col-xs-8">
 
 	</div>
 </div>
@@ -77,9 +76,9 @@
 
 			var userTemplet = `
 			<div class="container col-xs-12">
-			<p>{{username}}</p>
-			<p>{{email}}</p>
-			<p>{{tel}}</p>
+			<p>用户名：{{username}}</p>
+			<p>邮箱：{{email}}</p>
+			<p>电话：{{tel}}</p>
 			<a href="#" data-userid={{id}} class="btn btn-danger btn-sm delUserBtn">删除用户</a>
 			<hr>
 		</div>`

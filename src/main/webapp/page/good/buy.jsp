@@ -13,7 +13,7 @@
 		<div class="form-group">
 			<label for="inputEmail" class="col-xs-2 control-label">电话</label>
 			<div class="col-lg-10">
-				<input type="text" class="form-control" id="inputEmail" placeholder="tel" name="tel" required>
+				<input type="number" class="form-control" id="inputEmail" placeholder="tel" name="tel" maxlength="11" required>
 			</div>
 		</div>
 		<div class="form-group">

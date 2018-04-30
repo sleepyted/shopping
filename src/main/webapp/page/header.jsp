@@ -78,4 +78,4 @@
 	</c:if>
 </nav>
 
-<div class="container col-xs-8 col-xs-offset-2" style="padding-top: 5%">
+<div class="container col-xs-8 col-xs-offset-2" style="padding-top: 2%">
