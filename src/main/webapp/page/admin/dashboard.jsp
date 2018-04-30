@@ -61,7 +61,7 @@
 			dataContainer.empty()
 			//商品信息模板
 			var goodTemplet = `
-			<div class="panel panel-primary col-xs-12 col-md-6 col-lg-4">
+			<div class="panel panel-primary col-xs-12">
 			<div class="panel-heading">
 				<h3 class="panel-title">{{name}}</h3>
 			</div>
@@ -179,7 +179,7 @@
 			<p>id：{{id}}</p>
 			<p>用户名：{{username}}</p>
 			<p>商品名：{{goodname}}</p>
-			<p>状态：{{status}}</p>
+			<p>状态：<span class="statusSpan">{{status}}</span></p>
 			<p>收件电话：{{tel}}</p>
 			<p>收件地址{{addr}}</p>
 			<p>收件人{{getname}}</p>
@@ -213,6 +213,20 @@
 											}
 										})
 									})
+								})
+
+								var statusSpan = $(".statusSpan")
+								statusSpan.each(function () {
+									var status = $(this).text()
+									if (status == 0) {
+										$(this).text("已付款")
+									} else if (status == 1) {
+										$(this).text("商家已确认")
+									} else if (status == 2) {
+										$(this).text("已发货")
+									} else if (status == 3) {
+										$(this).text("已完成")
+									}
 								})
 							}
 						}

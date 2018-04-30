@@ -56,6 +56,8 @@
 			<div class="col-xs-6">{{name}}</div>
 			<div class="col-xs-2">{{price}}</div>
 			<div class="col-xs-2">{{num}}</div>
+			<a class="btn btn-sm btn-info" href="<%=request.getContextPath()%>/cart?page=plus&goodId={{goodId}}">+</a>
+			<a class="btn btn-sm btn-info" href="<%=request.getContextPath()%>/cart?page=minus&goodId={{goodId}}">-</a>
 			<a data-goodid="{{goodId}}" href="#" class="btn btn-sm btn-primary delBtn">删除</a>
 			<hr>
 			`

@@ -33,7 +33,7 @@
 				<h3 class="panel-title">{{name}}</h3>
 			</div>
 			<div class="panel-body">
-				<img src="<%=request.getContextPath()%>/down?imgId={{picId}}" class='mainPic' alt="">
+				<img src="<%=request.getContextPath()%>/down?imgId={{picId}}" class='mainPic' title="{{discription}}">
 				<hr>
 				<a data-id={{id}} class="btn btn-default btn-block viewGood">￥{{price}} | 查看详情</a>
 			</div>
@@ -46,7 +46,7 @@
 				<h3 class="panel-title">{{name}}</h3>
 			</div>
 			<div class="panel-body">
-				<img src="<%=request.getContextPath()%>/down?imgId={{picId}}" class='mainPic' alt="">
+				<img src="<%=request.getContextPath()%>/down?imgId={{picId}}" class='mainPic'  title="{{discription}}>
 				<hr>
 				<a data-id={{id}} class="btn btn-disable btn-block">￥{{price}} | 请先登录</a>
 			</div>

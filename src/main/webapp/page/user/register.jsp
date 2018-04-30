@@ -8,7 +8,7 @@
 			</div>
 			<div class="form-group">
 				<label for="Tel">手机号码</label>
-				<input type="number" class="form-control" id="Tel" placeholder="Tel" required  oninput="if(value.length>13)value=value.slice(0,13)">
+				<input type="number" class="form-control" id="Tel" placeholder="Tel" required oninput="if(value.length>11)value=value.slice(0,11)">
 			</div>
 			<div class="form-group">
 				<label for="Username">用户名</label>
@@ -52,8 +52,13 @@
 
 				if (email.indexOf("@")<=0) {
 					$("#Email").focus()
+					alert("请填写正确的邮箱地址")
 					return
-				} else {
+				}else if(+tel < 10000000000 || +tel > 99999999999){
+					alert("请填写正确的手机号码")
+					return
+				}
+				else {
 
 					var  userInfo ={
 						username: username,

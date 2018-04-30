@@ -22,16 +22,16 @@ import java.util.List;
 public class CartServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		User user = (User)req.getSession().getAttribute("user");
-		if(null != user){
+		User user = (User) req.getSession().getAttribute("user");
+		if (null != user) {
 			String page = req.getParameter("page");
 			List<CartItem> cartItems;
 			cartItems = (List<CartItem>) req.getSession().getAttribute("cart");
-			if(null == cartItems){
+			if (null == cartItems) {
 				cartItems = new ArrayList<>();
 				req.getSession().setAttribute("cart", cartItems);
 			}
-			switch (page){
+			switch (page) {
 				case "view":
 					req.getRequestDispatcher("/page/user/cart.jsp").forward(req, resp);
 					break;
@@ -39,48 +39,74 @@ public class CartServlet extends HttpServlet {
 					int goodId = Integer.valueOf(req.getParameter("goodId"));
 					int num = Integer.valueOf(req.getParameter("num"));
 					Boolean flag = false;
-					for(int i = 0; i< cartItems.size(); i++) {
-						if(cartItems.get(i).getGood().getId() == goodId){
-							cartItems.get(i).setNum(cartItems.get(i).getNum()+num);
+					for (int i = 0; i < cartItems.size(); i++) {
+						if (cartItems.get(i).getGood().getId() == goodId) {
+							cartItems.get(i).setNum(cartItems.get(i).getNum() + num);
 							flag = true;
 						}
 					}
-					if(!flag){
+					if (!flag) {
 						GoodService service = new GoodService();
 						CartItem item = new CartItem(service.findGood(goodId), num);
 						cartItems.add(item);
 					}
 
-					Util.writeJson(resp, new Result(1,"添加成功"));
+					Util.writeJson(resp, new Result(1, "添加成功"));
 					break;
 				case "del":
 					int goodId1 = Integer.valueOf(req.getParameter("goodId"));
-					for(int i = 0; i< cartItems.size(); i++) {
-						if(cartItems.get(i).getGood().getId() == goodId1){
+					for (int i = 0; i < cartItems.size(); i++) {
+						if (cartItems.get(i).getGood().getId() == goodId1) {
 							cartItems.remove(i);
 						}
 					}
-					Util.writeJson(resp, new Result(1,"删除成功"));
+					Util.writeJson(resp, new Result(1, "删除成功"));
 					break;
 				case "all":
-					if(cartItems.size()>0) {
+					if (cartItems.size() > 0) {
 						Result result = new Result();
 						result.setStatus(1);
 						result.setList(cartItems);
 						Util.writeJson(resp, result);
-					}else {
-						Util.writeJson(resp, new Result(0,"无商品"));
+					} else {
+						Util.writeJson(resp, new Result(0, "无商品"));
 					}
+					break;
+				case "plus":
+					Integer goodIdPlus = Integer.valueOf(req.getParameter("goodId"));
+					if (cartItems.size() > 0) {
+						for (int i = 0; i < cartItems.size(); i++) {
+							if (cartItems.get(i).getGood().getId() == goodIdPlus) {
+								int numN = cartItems.get(i).getNum() + 1;
+								int after = numN < cartItems.get(i).getGood().getCount() ? numN : cartItems.get(i).getGood().getCount();
+								cartItems.get(i).setNum(after);
+							}
+						}
+					}
+					resp.sendRedirect("cart?page=view");
+					break;
+				case "minus":
+					Integer goodIdMinus = Integer.valueOf(req.getParameter("goodId"));
+					if (cartItems.size() > 0) {
+						for (int i = 0; i < cartItems.size(); i++) {
+							if (cartItems.get(i).getGood().getId() == goodIdMinus) {
+								int numN = cartItems.get(i).getNum() - 1;
+								int after = numN > 0 ? numN : 1;
+								cartItems.get(i).setNum(after);
+							}
+						}
+					}
+					resp.sendRedirect("cart?page=view");
 					break;
 				case "clear":
 					cartItems.clear();
-					Util.writeJson(resp, new Result(1,"购物车已清空"));
+					Util.writeJson(resp, new Result(1, "购物车已清空"));
 					break;
 				case "buy":
 					req.getRequestDispatcher("/page/good/buy.jsp").forward(req, resp);
 					break;
 			}
-		}else {
+		} else {
 			Util.writeJson(resp, new Result(0, "请先登陆"));
 		}
 	}
