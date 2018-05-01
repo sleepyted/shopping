@@ -25,7 +25,7 @@
 		<div class="col-xs-10 col-xs-offset-1 col-md-4 col-md-offset-4">
 			<p>扫描二维码付款</p>
 			<hr>
-			<img src="<%=request.getContextPath()%>/down?imgId=1" alt="Qrcode" style="width: 100%;">
+			<img src="<%=request.getContextPath()%>/static/img/payCode.png" alt="Qrcode" style="width: 100%;">
 		</div>
 		<div class="form-group">
 			<div class="col-lg-10 col-lg-offset-2">

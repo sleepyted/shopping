@@ -1,8 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <jsp:include page="header.jsp"/>
+<div class="container col-xs-2" id="leftbar">
 
-<div class="container col-xs-12" id="main">
+</div>
+<div class="container col-xs-10" id="main">
 
 </div>
 
@@ -28,20 +30,21 @@
 
 		<c:if test="${user!=null}">
 		var goodTemplet = `
-			<div class="panel panel-primary col-xs-12 col-md-6 col-lg-4" >
+			<div class="panel panel-primary col-xs-12 col-md-6 col-lg-6" >
 			<div class="panel-heading">
 				<h3 class="panel-title">{{name}}</h3>
 			</div>
 			<div class="panel-body">
+			<a data-id={{id}} class=" viewGood">
 				<img src="<%=request.getContextPath()%>/down?imgId={{picId}}" class='mainPic' title="{{discription}}">
 				<hr>
-				<a data-id={{id}} class="btn btn-default btn-block viewGood">￥{{price}} | 查看详情</a>
-			</div>
+				￥{{price}} | 查看详情
+			</div></a>
 		</div>`
 		</c:if>
 		<c:if test="${user==null}">
 		var goodTemplet = `
-			<div class="panel panel-primary col-xs-12 col-md-6 col-lg-4" >
+			<div class="panel panel-primary col-xs-12 col-md-6 col-lg-6" >
 			<div class="panel-heading">
 				<h3 class="panel-title">{{name}}</h3>
 			</div>

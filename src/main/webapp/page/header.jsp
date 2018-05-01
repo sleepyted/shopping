@@ -6,13 +6,24 @@
 	<title>购物 ${title}</title>
 	<meta charset="UTF-8"/>
 	<link rel="stylesheet" href="<%= request.getContextPath() + "/static/css/bootstrap.css"%>">
+	<link rel="stylesheet" href="<%= request.getContextPath() + "/static/wangEditor.min.css"%>">
 	<script src="<%= request.getContextPath() + "/static/js/jquery.js"%>"></script>
 	<script src="<%= request.getContextPath() + "/static/js/bootstrap.js"%>"></script>
+	<%--<script src="<%= request.getContextPath() + "/static/wangEditor.js"%>"></script>--%>
+	<script src="<%= request.getContextPath() + "/static/wangEditor.min.js"%>"></script>
 </head>
 <style>
 	.mainPic{
 		height:200px;
 		max-width: 100%;
+	}
+	img:hover {
+		transform: scale(1.1);
+
+	}
+	a:hover {
+		transform: scale(1.1);
+		transition: all 1s ease;
 	}
 </style>
 <body>

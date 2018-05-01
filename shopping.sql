@@ -20,14 +20,15 @@ INSERT INTO shopping.user(username,email,tel,password,gender,user_type) VALUES (
 INSERT INTO shopping.user(username,email,tel,password,gender,user_type) VALUES ('test','test@test.com','123123123','ISMvKXpXpadDiUoOSoAfww==','0','0');
 
 DROP TABLE IF EXISTS good;
-CREATE TABLE good(
-  id INT(8) NOT NULL AUTO_INCREMENT PRIMARY KEY ,
-  picId VARCHAR(2048) NOT NULL,
-  name VARCHAR(128) NOT NULL ,
-  discription VARCHAR(4396) NOT NULL ,
-  price DOUBLE NOT NULL,
-  count int(11) not NULL
-
+CREATE TABLE `good` (
+  `id` int(8) NOT NULL AUTO_INCREMENT,
+  `picId` varchar(2048) NOT NULL,
+  `name` varchar(128) NOT NULL,
+  `discription` varchar(4396) NOT NULL,
+  `price` double NOT NULL,
+  `count` int(11) NOT NULL,
+  `type` varchar(1) DEFAULT '0',
+  PRIMARY KEY (`id`)
 );
 
 DROP TABLE IF EXISTS orders;

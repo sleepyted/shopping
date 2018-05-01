@@ -9,7 +9,9 @@
     </div>
     <div class="form-group">
         <label for="discription">描述</label>
-        <input type="text" class="form-control" id="discription" name="discription" placeholder="discription">
+        <%--<textarea type="text" class="form-control" id="discription" name="discription" placeholder="discription"/>--%>
+        <textarea id="discription" style="width:100%; height:200px;" name="discription"></textarea>
+
     </div>
     <div class="form-group">
         <label for="price">价格</label>
@@ -63,6 +65,35 @@
 
 <script>
     $(function(){
+        var editor = new wangEditor('discription');
+        editor.config.menus = [
+            'source',
+            '|',
+            'bold',
+            'underline',
+            'italic',
+            'strikethrough',
+            'eraser',
+            'forecolor',
+            '|',
+            'quote',
+            'fontfamily',
+            'fontsize',
+            'unorderlist',
+            'orderlist',
+            '|',
+            'link',
+            'unlink',
+            'table',
+            '|',
+            'img',
+            'location',
+            'insertcode',
+            '|',
+            'undo',
+            'redo',
+        ];
+        editor.create();
 //        var upBtn = $("#uploadBtn")
 //        var picHidden = $("#picId")
 //        var submitBtn = $("#addBtn")

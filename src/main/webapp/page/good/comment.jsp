@@ -6,9 +6,9 @@
 		<legend>填写评价</legend>
 		<input type="hidden" name="goodId" value="${comment.goodId}">
 		<div class="form-group">
-			<label for="textArea" class="col-lg-2 control-label"></label>
+			<label for="text1" class="col-lg-2 control-label"></label>
 			<div class="col-lg-10">
-				<textarea class="form-control" rows="4" id="textArea" name="content"></textarea>
+				<textarea id="text1" style="width:100%; height:200px;" name="content"></textarea>
 				<span class="help-block">评价将会显示在商品详情页中.</span>
 			</div>
 		</div>
@@ -24,6 +24,47 @@
 
 <script>
 	$(function(){
+//		var E = window.wangEditor
+//		var editor = new E('#div1')
+//		var $text1 = $('#text1')
+//		editor.customConfig.onchange = function (html) {
+//			// 监控变化，同步更新到 textarea
+//			$text1.val(html)
+//		}
+//		editor.create()
+//		// 初始化 textarea 的值
+//		$text1.val(editor.txt.html())
+		//init the editor
+		var editor = new wangEditor('text1');
+		editor.config.menus = [
+			'source',
+			'|',
+			'bold',
+			'underline',
+			'italic',
+			'strikethrough',
+			'eraser',
+			'forecolor',
+			'|',
+			'quote',
+			'fontfamily',
+			'fontsize',
+			'unorderlist',
+			'orderlist',
+			'|',
+			'link',
+			'unlink',
+			'table',
+			'|',
+			'img',
+			'location',
+			'insertcode',
+			'|',
+			'undo',
+			'redo',
+		];
+		editor.create();
 	})
+
 </script>
 <jsp:include page="../footer.jsp"/>
