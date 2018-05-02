@@ -10,7 +10,7 @@
 	</div>
 	<div class="form-group">
 		<label for="discription">描述</label>
-		<input type="text" class="form-control" id="discription" name="discription" placeholder="discription" value="${good.discription}">
+		<textarea id="discription" style="width:100%; height:200px;" name="discription">${good.discription}</textarea>
 	</div>
 	<div class="form-group">
 		<label for="price">价格</label>
@@ -20,7 +20,18 @@
 		<label for="count">库存</label>
 		<input type="number" class="form-control" id="count" name="count" placeholder="price" value="${good.count}">
 	</div>
-
+	<div class="form-group">
+		<label for="select" class="col-lg-2 control-label">分类</label>
+		<div class="col-lg-10">
+			<select class="form-control" id="select" name="type">
+				<option value="0">今日折扣</option>
+				<option value="1">家具</option>
+				<option value="2">厨卫</option>
+				<option value="3">其他</option>
+			</select>
+			<br>
+		</div>
+	</div>
 	<a href="#" id="openBtn" class="btn btn-default" data-toggle="modal" data-target="#iconModel">上传商品图片</a>
 	<%--<button id="uploadBtn"class="btn btn-default">上传商品图片</button>--%>
 	<input type="hidden" value="${good.picId}" id="picId" name="picId" >
@@ -64,6 +75,35 @@
 
 <script>
 	$(function(){
+		var editor = new wangEditor('discription');
+		editor.config.menus = [
+			'source',
+			'|',
+			'bold',
+			'underline',
+			'italic',
+			'strikethrough',
+			'eraser',
+			'forecolor',
+			'|',
+			'quote',
+			'fontfamily',
+			'fontsize',
+			'unorderlist',
+			'orderlist',
+			'|',
+			'link',
+			'unlink',
+			'table',
+			'|',
+			'img',
+			'location',
+			'insertcode',
+			'|',
+			'undo',
+			'redo',
+		];
+		editor.create();
 //        var upBtn = $("#uploadBtn")
 //        var picHidden = $("#picId")
 //        var submitBtn = $("#addBtn")

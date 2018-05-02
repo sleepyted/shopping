@@ -1,12 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="header.jsp"/>
+<jsp:include page="../header.jsp"/>
 <div class="container col-xs-2" id="leftbar">
 	<div class="list-group">
-		<a href="<%=request.getContextPath()%>/good?page=partView&type=0" class="list-group-item active">
+		<a href="<%=request.getContextPath()%>/good?page=partView&type=0" class="list-group-item ">
 			今日折扣
 		</a>
-		<a href="<%=request.getContextPath()%>/good?page=partView&type=1" class="list-group-item">
+		<a href="<%=request.getContextPath()%>/good?page=partView&type=1" class="list-group-item active">
 			家具
 		</a>
 		<a href="<%=request.getContextPath()%>/good?page=partView&type=2" class="list-group-item">
@@ -76,7 +76,7 @@
 
 		//请求数据
 		$.ajax({
-			url: '<%=request.getContextPath()%>/good?page=part&type=0',
+			url: '<%=request.getContextPath()%>/good?page=part&type=1',
 			type: 'get',
 			success: function (data) {
 				console.log('get good list success')
@@ -122,4 +122,4 @@
 	})
 </script>
 
-<jsp:include page="footer.jsp"/>
+<jsp:include page="../footer.jsp"/>

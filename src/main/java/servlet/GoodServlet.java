@@ -48,6 +48,27 @@ public class GoodServlet extends HttpServlet {
 						Util.writeJson(resp, result);
 
 						break;
+					case "partView":
+						String type = req.getParameter("type");
+						if(type.equals("1")) {
+							req.getRequestDispatcher("/page/good/part1.jsp").forward(req, resp);
+						}else if(type.equals("2")){
+							req.getRequestDispatcher("/page/good/part2.jsp").forward(req, resp);
+
+						}else if(type.equals("3")){
+							req.getRequestDispatcher("/page/good/part3.jsp").forward(req, resp);
+
+						}else {
+							resp.sendRedirect("home");
+						}
+						break;
+					case "part":
+						GoodService service3 = new GoodService();
+						Result result1 = new Result();
+						result1.setStatus(1);
+						result1.setList(service3.findPart(req.getParameter("type")));
+						Util.writeJson(resp, result1);
+						break;
 					case "del":
 						if(user!=null && user.getUserType().equals("1")) {
 							String goodIdDel = req.getParameter("goodId");
@@ -105,6 +126,7 @@ public class GoodServlet extends HttpServlet {
 			String picId = req.getParameter("picId");
 			String name = req.getParameter("name");
 			String discription = req.getParameter("discription");
+			String type = req.getParameter("type");
 			Double price = Double.valueOf(req.getParameter("price"));
 			int count = Integer.valueOf(req.getParameter("count"));
 
@@ -113,6 +135,7 @@ public class GoodServlet extends HttpServlet {
 			good.setDiscription(discription);
 			good.setPrice(price);
 			good.setCount(count);
+			good.setType(type);
 			if (!picId.equals("")) {
 				good.setPicId(Integer.valueOf(picId));
 			} else {
@@ -129,6 +152,7 @@ public class GoodServlet extends HttpServlet {
 				good.setId(Integer.valueOf(goodIdUpdate));
 				good.setName(req.getParameter("name"));
 				good.setDiscription(req.getParameter("discription"));
+				good.setType(req.getParameter("type"));
 				good.setPicId(Integer.valueOf(req.getParameter("picId")));
 				good.setCount(Integer.valueOf(req.getParameter("count")));
 				good.setPrice(Double.valueOf(req.getParameter("price")));

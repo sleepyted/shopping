@@ -19,15 +19,18 @@
 	}
 	img:hover {
 		transform: scale(1.1);
-
+		transition:  all 1s ease;
 	}
-	a:hover {
-		transform: scale(1.1);
-		transition: all 1s ease;
+	body{
+		min-height: 100%;
 	}
+	/*a:hover {*/
+		/*transform: scale(1.1);*/
+		/*transition: all 1s ease;*/
+	/*}*/
 </style>
 <body>
-<nav class="navbar navbar-default col-xs-8 col-xs-offset-2">
+<nav class="navbar navbar-default col-xs-8 col-xs-offset-2" style="background: orange">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -39,7 +42,10 @@
 				<span class="icon-bar"></span>
 			</button>
 			<c:if test="${admin ==null}">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/home">购物网</a>
+				<a class="navbar-brand" href="<%=request.getContextPath()%>/home" style="background: white;color: #000;">
+					<img src="<%=request.getContextPath()%>/static/img/logo.png" alt="logo" style="height: 150%;display: inline-block;">
+					<span>生活家居线上销售平台</span>
+			</a>
 			</c:if>
 			<c:if test="${admin !=null}">
 			<a class="navbar-brand" href="<%=request.getContextPath()%>/admin?page=dashboard">dashboard</a>

@@ -11,23 +11,24 @@ import java.util.List;
 
 /**
  */
-public class GoodDao extends BaseDao  {
+public class GoodDao extends BaseDao {
 
 	private static final String TAG = "GoodDao";
 
-	public int insert(Good good){
-		try{
+	public int insert(Good good) {
+		try {
 			conn = JDBCUtil.getConnection();
 			String sql = "INSERT INTO shopping.good" +
-					" (name, picId, discription, price, count)" +
+					" (name, picId, discription, price, count, type )" +
 					" VALUES" +
-					" (?,?,?,?,?)";
+					" (?,?,?,?,?,?)";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, good.getName());
 			ps.setInt(2, good.getPicId());
 			ps.setString(3, good.getDiscription());
 			ps.setDouble(4, good.getPrice());
 			ps.setInt(5, good.getCount());
+			ps.setString(6, good.getType());
 
 			ps.executeUpdate();
 			rs = ps.getGeneratedKeys();
@@ -44,10 +45,10 @@ public class GoodDao extends BaseDao  {
 		}
 	}
 
-	public Good findById(int id){
+	public Good findById(int id) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,picId,name,discription, price,count FROM shopping.good" +
+			String sql = "SELECT id,picId,name,discription, price,count, type FROM shopping.good" +
 					" WHERE " +
 					" id = ?";
 			ps = conn.prepareStatement(sql);
@@ -61,6 +62,7 @@ public class GoodDao extends BaseDao  {
 				good.setDiscription(rs.getString("discription"));
 				good.setPrice(rs.getDouble("price"));
 				good.setCount(rs.getInt("count"));
+				good.setType(rs.getString("type"));
 				return good;
 			}
 			return null;
@@ -72,10 +74,10 @@ public class GoodDao extends BaseDao  {
 		}
 	}
 
-	public List<Good> findAllGood(){
+	public List<Good> findAllGood() {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,picId,name,discription, price, count FROM shopping.good";
+			String sql = "SELECT id,picId,name,discription, price, count, type FROM shopping.good";
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			List goodList = new ArrayList<>();
@@ -87,6 +89,7 @@ public class GoodDao extends BaseDao  {
 				good.setDiscription(rs.getString("discription"));
 				good.setPrice(rs.getDouble("price"));
 				good.setCount(rs.getInt("count"));
+				good.setType(rs.getString("type"));
 				goodList.add(good);
 			}
 			return goodList;
@@ -98,8 +101,36 @@ public class GoodDao extends BaseDao  {
 		}
 	}
 
-	public void del(int id){
-		try{
+	public List<Good> findPart(String part) {
+		try {
+			conn = JDBCUtil.getConnection();
+			String sql = "SELECT id,picId,name,discription, price, count, type FROM shopping.good WHERE good.type=?";
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, part);
+			rs = ps.executeQuery();
+			List goodList = new ArrayList<>();
+			while (rs.next()) {
+				Good good = new Good();
+				good.setId(rs.getInt("id"));
+				good.setPicId(rs.getInt("picId"));
+				good.setName(rs.getString("name"));
+				good.setDiscription(rs.getString("discription"));
+				good.setPrice(rs.getDouble("price"));
+				good.setCount(rs.getInt("count"));
+				good.setType(rs.getString("type"));
+				goodList.add(good);
+			}
+			return goodList;
+		} catch (Exception e) {
+			Log.i(TAG, e.toString());
+			return null;
+		} finally {
+			JDBCUtil.closeResource(rs, ps);
+		}
+	}
+
+	public void del(int id) {
+		try {
 			conn = JDBCUtil.getConnection();
 			String sql = "DELETE  FROM shopping.good WHERE id = ?";
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -114,17 +145,18 @@ public class GoodDao extends BaseDao  {
 		}
 	}
 
-	public void update(Good good){
+	public void update(Good good) {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "UPDATE shopping.good SET good.name= ? , good.discription = ? , good.price = ? , good.count = ?, good.picId=? WHERE good.id = ?";
+			String sql = "UPDATE shopping.good SET good.name= ? , good.discription = ? , good.price = ? , good.count = ?, good.picId=?, good.type = ? WHERE good.id = ?";
 			ps = conn.prepareStatement(sql);
-			ps.setString(1,good.getName());
+			ps.setString(1, good.getName());
 			ps.setString(2, good.getDiscription());
 			ps.setDouble(3, good.getPrice());
 			ps.setInt(4, good.getCount());
 			ps.setInt(5, good.getPicId());
 			ps.setInt(6, good.getId());
+			ps.setString(7, good.getType());
 
 			ps.executeUpdate();
 		} catch (Exception e) {

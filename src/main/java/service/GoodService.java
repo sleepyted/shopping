@@ -26,4 +26,7 @@ public class GoodService {
 	public void updateGood(Good good){
 		goodDao.update(good);
 	}
+	public List<Good> findPart(String type){
+		return goodDao.findPart(type);
+	}
 }
