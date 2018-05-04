@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 </div>
-<div class="container col-xs-8 col-xs-offset-2" style="background: #f2f2f2;position: absolute;bottom: 0;">
+<div class="container col-xs-8 col-xs-offset-2" style="background: #f2f2f2;">
 	<div class="container col-xs-4">
 		<h6 class="col-xs-12">购物指南</h6>
 		<h6 class="col-xs-8 col-xs-offset-2"><a href="">导购演示</a></h6>
