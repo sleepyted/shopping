@@ -141,7 +141,7 @@ public class UserDao extends BaseDao {
 	public List<User> getAll() {
 		try {
 			conn = JDBCUtil.getConnection();
-			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM shopping.user" ;
+			String sql = "SELECT id,username, email, tel, gender, user_type, del_flag FROM shopping.user where user.user_type = 0" ;
 			ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 			rs = ps.executeQuery();
 			List<User> users = new ArrayList<>();

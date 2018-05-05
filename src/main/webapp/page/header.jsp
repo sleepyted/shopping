@@ -30,7 +30,9 @@
 	/*}*/
 </style>
 <body>
-<nav class="navbar navbar-default col-xs-8 col-xs-offset-2" style="background: orange">
+<div id="mainContainer" style="height: 100%;min-height: 100%;">
+<div id="mainContainer" style="height: 100%;min-height: 100%;">
+    <nav class="navbar navbar-default col-xs-8 col-xs-offset-2" style="background: orange">
 	<div class="container-fluid">
 		<!-- Brand and toggle get grouped for better mobile display -->
 		<div class="navbar-header">
@@ -48,7 +50,7 @@
 			</a>
 			</c:if>
 			<c:if test="${admin !=null}">
-			<a class="navbar-brand" href="<%=request.getContextPath()%>/admin?page=dashboard">dashboard</a>
+			<a class="navbar-brand" href="<%=request.getContextPath()%>/admin?page=dashboard">管理员管理页面</a>
 			</c:if>
 
 		</div>

@@ -26,7 +26,7 @@
 		<label for="select" class="col-lg-2 control-label">分类</label>
 		<div class="col-lg-10">
 			<select class="form-control" id="select" name="type">
-				<option value="0">今日折扣</option>
+				<option value="0" selected="selected">今日折扣</option>
 				<option value="1">家具</option>
 				<option value="2">厨卫</option>
 				<option value="3">其他</option>
@@ -160,4 +160,3 @@
 		});
 	})
 </script>
-<jsp:include page="../footer.jsp"/>

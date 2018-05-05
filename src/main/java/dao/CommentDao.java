@@ -3,7 +3,6 @@ package dao;
 import bean.Comment;
 import common.JDBCUtil;
 import common.Log;
-import sun.plugin.com.event.COMEventHandler;
 
 import java.sql.Statement;
 import java.util.ArrayList;

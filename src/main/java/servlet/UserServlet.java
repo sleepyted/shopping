@@ -79,10 +79,12 @@ public class UserServlet extends HttpServlet implements PubDefine{
 
 				try{
 					int rtn = userService.userRegister(user);
-					if(rtn != STATUS_ERROR){
-						Util.writeJson(resp,new Result(1,"注册成功，将跳转到登录页面"));
-					}else if(rtn == STATUS_ALLREADY_FOUND){
+					if(rtn == STATUS_ALLREADY_FOUND){
 						Util.writeJson(resp, new Result(0,"注册失败，邮箱已被占用"));
+
+					}else if(rtn != STATUS_ERROR){
+						Util.writeJson(resp,new Result(1,"注册成功，将跳转到登录页面"));
+
 					}else {
 						Util.writeJson(resp, new Result(0,"注册失败，系统错误"));
 					}

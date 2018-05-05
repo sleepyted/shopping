@@ -13,9 +13,15 @@
 
 			<form class="form-inline">
 				<div class="form-group">
-					<label for="numIpt">数量</label>
-					<input type="number" class="form-control" id="numIpt" placeholder="剩余库存${good.count}件">
+					<label for="numIpt">购买数量(剩余库存${good.count}件)</label><br>
+					<input type="number" class="form-control" id="numIpt" value="1" placeholder=""/>
+
+					<a class="btn btn-sm btn-info" id="addBtn" href="#">+</a>
+					<a class="btn btn-sm btn-info" id="minusBtn" href="#">-</a>
+
 				</div>
+				<br>
+				<br>
 				<a class="btn btn-primary btn-md" href="#" id="addCartBtn" role="button">加入购物车</a>
 			</form>
 		</div>
@@ -57,11 +63,31 @@
 	</div>
 </c:if>
 <script>
+
 	var totalCount = ${good.count}
 			$(function () {
 				var goodId = $("#goodId").val()
 				var addCartBtn = $("#addCartBtn")
 
+				var addBtn = $("#addBtn")
+				var minusBtn = $("#minusBtn")
+				addBtn.on('click', function (ev) {
+					ev.preventDefault()
+                    var num = $("#numIpt")
+					if(parseInt(num.val()) < totalCount){
+					    num.val(parseInt(num.val()) + 1)
+					}else {
+					    alert("库存不足")
+					}
+                })
+                minusBtn.on('click', function (ev) {
+                    ev.preventDefault()
+                    var num = $("#numIpt")
+                    if(parseInt(num.val()) > 0){
+                        num.val(parseInt(num.val())-1)
+                    }else {
+                    }
+                })
 				addCartBtn.on('click', function (e) {
 					e.preventDefault()
 					var numIpt = $("#numIpt").val() ? $("#numIpt").val() : 1
