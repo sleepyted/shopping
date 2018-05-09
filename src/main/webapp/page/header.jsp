@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,6 +14,12 @@
 	<script src="<%= request.getContextPath() + "/static/wangEditor.min.js"%>"></script>
 </head>
 <style>
+	@font-face
+	{
+		font-family: myfont;
+		src: url('/static/fonts/CygnetRound.ttf'),
+		url('/static/fonts/CygnetRound.ttf'); /* IE9 */
+	}
 	.mainPic{
 		height:200px;
 		max-width: 100%;
@@ -23,6 +30,10 @@
 	}
 	body{
 		min-height: 100%;
+		font-family: myfont, '微软雅黑', Arial, sans-serif;
+	}
+	.btnImg:hover{
+		transform: rotate(360deg);
 	}
 	/*a:hover {*/
 		/*transform: scale(1.1);*/
@@ -30,7 +41,6 @@
 	/*}*/
 </style>
 <body>
-<div id="mainContainer" style="height: 100%;min-height: 100%;">
 <div id="mainContainer" style="height: 100%;min-height: 100%;">
     <nav class="navbar navbar-default col-xs-8 col-xs-offset-2" style="background: orange">
 	<div class="container-fluid">
@@ -45,8 +55,8 @@
 			</button>
 			<c:if test="${admin ==null}">
 				<a class="navbar-brand" href="<%=request.getContextPath()%>/home" style="background: white;color: #000;">
-					<img src="<%=request.getContextPath()%>/static/img/logo.png" alt="logo" style="height: 150%;display: inline-block;">
-					<span>生活家居线上销售平台</span>
+					<img src="<%=request.getContextPath()%>/static/img/logo.jpg" alt="logo" style="height: 150%;display: inline-block;">
+					<span>Family  家私</span>
 			</a>
 			</c:if>
 			<c:if test="${admin !=null}">

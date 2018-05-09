@@ -41,7 +41,14 @@ public class CartServlet extends HttpServlet {
 					Boolean flag = false;
 					for (int i = 0; i < cartItems.size(); i++) {
 						if (cartItems.get(i).getGood().getId() == goodId) {
-							cartItems.get(i).setNum(cartItems.get(i).getNum() + num);
+
+							CartItem cartItem = cartItems.get(i);
+							if(cartItem.getGood().getCount() < cartItem.getNum() + num){
+								Util.writeJson(resp, new Result(0, "添加失败！购物车中已有" + cartItem.getNum() + "件此商品，总数量大于库存"));
+								return;
+							}else {
+								cartItem.setNum(cartItems.get(i).getNum() + num);
+							}
 							flag = true;
 						}
 					}

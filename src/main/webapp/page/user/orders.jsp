@@ -1,7 +1,27 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<jsp:include page="../header.jsp"/>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions"  prefix="fn"%>
 
+<jsp:include page="../header.jsp"/>
+<c:if test="${fn:length(orders) == 0}">
+	<h2>还没有订单~</h2>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+	<br>
+</c:if>
 <c:forEach items="${orders}" var="order">
 	<div class=" col-xs-12">
 		<p>名称：${order.good.name}</p>

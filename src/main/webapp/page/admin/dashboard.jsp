@@ -183,6 +183,7 @@
 			<p>收件电话：{{tel}}</p>
 			<p>收件地址{{addr}}</p>
 			<p>收件人{{getname}}</p>
+			<p>数量{{num}}</p>
 			<a href="#" data-oid={{id}} data-status='1' class="btn btn-danger btn-sm changeStatus">订单确认1</a>
 			<a href="#" data-oid={{id}} data-status='2' class="btn btn-danger btn-sm changeStatus">订单发货2</a>
 			<hr>

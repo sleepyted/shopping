@@ -155,8 +155,8 @@ public class GoodDao extends BaseDao {
 			ps.setDouble(3, good.getPrice());
 			ps.setInt(4, good.getCount());
 			ps.setInt(5, good.getPicId());
-			ps.setInt(6, good.getId());
-			ps.setString(7, good.getType());
+			ps.setString(6, good.getType());
+			ps.setInt(7, good.getId());
 
 			ps.executeUpdate();
 		} catch (Exception e) {

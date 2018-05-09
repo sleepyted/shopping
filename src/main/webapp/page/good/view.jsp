@@ -83,14 +83,18 @@
                 minusBtn.on('click', function (ev) {
                     ev.preventDefault()
                     var num = $("#numIpt")
-                    if(parseInt(num.val()) > 0){
+                    if(parseInt(num.val()) > 1){
                         num.val(parseInt(num.val())-1)
                     }else {
                     }
                 })
 				addCartBtn.on('click', function (e) {
 					e.preventDefault()
-					var numIpt = $("#numIpt").val() ? $("#numIpt").val() : 1
+					var numIpt = $("#numIpt").val()? $("#numIpt").val() : 1
+					if(numIpt == 0){
+					    alert('数量为0！请至少添加1件商品')
+						return;
+					}
 					if (numIpt > totalCount) {
 						alert('库存不足！剩余' + totalCount + '件')
 					} else {
